@@ -14,7 +14,7 @@ public class PlayerInputPatch : IPuckMod
 
   [HarmonyPostfix]
   [HarmonyPatch("Start")]
-  public static void PostfixStart(PlayerInput __instance, ref float ___bladeAngleBuffer)
+  public static void PostfixStart()
   {
     mouse = Mouse.current;
   }
