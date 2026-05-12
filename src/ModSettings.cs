@@ -1,5 +1,5 @@
 using System.IO;
-using System.Text.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace StickAngleResetter;
@@ -26,11 +26,7 @@ public class ModSettings
       try
       {
         var json = File.ReadAllText(path);
-        var settings = JsonSerializer.Deserialize<ModSettings>(json,
-            new JsonSerializerOptions
-            {
-              PropertyNameCaseInsensitive = true
-            });
+        var settings = JsonConvert.DeserializeObject<ModSettings>(json);
         return settings ?? new ModSettings();
       }
       catch (JsonException je)
@@ -42,10 +38,7 @@ public class ModSettings
 
     var defaults = new ModSettings();
     File.WriteAllText(path,
-        JsonSerializer.Serialize(defaults, new JsonSerializerOptions
-        {
-          WriteIndented = true
-        }));
+        JsonConvert.SerializeObject(defaults, Formatting.Indented));
 
     Debug.Log($"Config file `{path}` did not exist, created with defaults.");
     return defaults;
@@ -60,10 +53,7 @@ public class ModSettings
       Directory.CreateDirectory(dir);
 
     File.WriteAllText(path,
-        JsonSerializer.Serialize(this, new JsonSerializerOptions
-        {
-          WriteIndented = true
-        }));
+        JsonConvert.SerializeObject(this, Formatting.Indented));
   }
 
   public static string GetConfigPath()

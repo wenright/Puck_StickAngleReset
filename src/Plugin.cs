@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StickAngleResetter;
 
-public class Plugin : IPuckMod
+public class Plugin : IPuckPlugin
 {
   public static string MOD_NAME = "StickAngleResetter";
   public static string MOD_VERSION = "0.2.0";
